@@ -7,7 +7,7 @@ export default {
       INPUT_BORDER: '#404040',
       INPUT_ICON: '#FFFFFF',
 
-      SUBMIT: '#57BE82',
+      SUBMIT: '#1F2229',
       SUBMIT_DISABLE: '#BEBEBE',
       SUBMIT_TEXT: '#FFFFFF',
 
@@ -15,11 +15,12 @@ export default {
 
       SELECTED: '#248047',
 
-      BACKGROUND: '#151515',
+      BACKGROUND: '#1A1B1E',
+      TABBAR_BACKGROUND: '#0D0D0E',
 
       TITLE: '#FFFFFF',
       TEXT_PRIMARY: '#57BE82',
-      TEXT_SECONDARY: '#ADB5BD',
+      TEXT_SECONDARY: '#8289AB',
       TEXT_ERROR: '#AD2145',
       TEXT_DIVIDER: '#FFFFFF',
    },

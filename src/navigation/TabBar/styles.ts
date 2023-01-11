@@ -2,14 +2,16 @@ import styled from 'styled-components/native';
 
 export const TabMenuContainer = styled.View`
    width: 100%;
-   height: 80px;
+   height: 90px;
+   position: absolute;
+   bottom: 0;
    flex-direction: row;
    align-items: center;
    justify-content: space-between;
    padding: 10px 20px;
    border-top-left-radius: 30px;
    border-top-right-radius: 30px;
-   background-color: ${({ theme }) => theme.NEW_UI_COLORS.BACKGROUND};
+   background-color: ${({ theme }) => theme.NEW_UI_COLORS.TABBAR_BACKGROUND};
 `;
 
 export const TabButton = styled.TouchableOpacity`

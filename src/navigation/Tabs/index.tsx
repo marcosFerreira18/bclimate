@@ -9,7 +9,7 @@ const Tab = createBottomTabNavigator();
 const Tabs: React.FC = () => {
    return (
       <Tab.Navigator tabBar={(props) => <MyTabBar {...props} />}>
-         <Tab.Screen name="Home" options={{ title: 'Início' }} component={HomeScreen} />
+         <Tab.Screen name="Home" options={{ title: 'Início', headerShown: false }} component={HomeScreen} />
          <Tab.Screen name="Settings" options={{ title: 'Ajustes' }} component={SettingsScreen} />
       </Tab.Navigator>
    );
