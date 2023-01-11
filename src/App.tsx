@@ -6,7 +6,7 @@ import Tabs from './navigation/Tabs';
 
 const App: React.FC = () => {
    return (
-      <NavigationContainer>
+      <NavigationContainer >
          <ThemeProvider theme={{ ...dark }}>
             <Tabs />
          </ThemeProvider>
