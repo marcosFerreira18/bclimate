@@ -10,7 +10,7 @@ const Tabs: React.FC = () => {
    return (
       <Tab.Navigator tabBar={(props) => <MyTabBar {...props} />}>
          <Tab.Screen name="Home" options={{ title: 'Início', headerShown: false }} component={HomeScreen} />
-         <Tab.Screen name="Settings" options={{ title: 'Ajustes' }} component={SettingsScreen} />
+         <Tab.Screen name="Settings" options={{ title: 'Ajustes', headerShown: false }} component={SettingsScreen} />
       </Tab.Navigator>
    );
 };

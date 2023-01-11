@@ -2,7 +2,7 @@ import { BlurView } from '@react-native-community/blur';
 import { Dimensions } from 'react-native';
 import styled from 'styled-components/native';
 
-const { width, height } = Dimensions.get('screen');
+const { width } = Dimensions.get('screen');
 
 export const ScreenContainer = styled.View`
    flex: 1;
