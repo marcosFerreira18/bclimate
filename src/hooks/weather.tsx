@@ -1,3 +1,4 @@
+import Geolocation from '@react-native-community/geolocation';
 import { createContext, useCallback, useContext, useEffect, useState } from 'react';
 import { getGeoReverse } from "../services/geo";
 import { LocationProps } from "../services/geo/types";
@@ -14,7 +15,6 @@ type WeatherContextType = {
 }
 
 export const WeatherContext = createContext({} as WeatherContextType)
-
 
 export const useWeather = (): WeatherContextType => {
     const context = useContext(WeatherContext)
@@ -38,10 +38,11 @@ export const WeatherProvider: React.FC<Props> = ({ children }) => {
     const [loading, setLoading] = useState<boolean>(false)
 
     useEffect(() => {
-
-        const lat = -20.176956
-        const lon = -40.193864
-        loadLocation(lat, lon)
+        setLoading(true)
+        Geolocation.getCurrentPosition(({ coords: { latitude, longitude } }) => {
+            console.log({ latitude, longitude })
+            loadLocation(37.785834, -122.406417)
+        });
     }, [])
 
     useEffect(() => {

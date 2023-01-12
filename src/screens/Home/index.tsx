@@ -55,10 +55,9 @@ const HomeScreen: React.FC = () => {
 };
 
 const EmptyScreen: React.FC = () => {
-   const { loadWeather, location, loading } = useWeather()
+   const { loadWeather, loading } = useWeather()
 
    return (
-
       <ScreenContainer>
          <BackgroundImage style={{ resizeMode: 'cover' }} source={bgImage} />
          <SafeAreaView style={{ justifyContent: 'center', alignItems: 'center', flex: 1 }}>
