@@ -1,51 +1,85 @@
+import { format, fromUnixTime, isTomorrow } from 'date-fns';
+import { ptBR } from 'date-fns/locale';
 import React, { useMemo, useState } from 'react';
 import { FlatList, TouchableOpacityProps, View } from 'react-native';
-import { ButtonContainer, ButtonIndicator, ButtonText, ForecastHourlyButtonsContainer, ForecastHourlyContainer, ItemTempContainer, TextTemp, TextTime } from './styles';
+import { useWeather } from '../../../hooks/weather';
+import { WeatherProps } from '../../../services/weather/types';
+import { ButtonContainer, ButtonIndicator, ButtonText, ForecastHourlyButtonsContainer, ForecastHourlyContainer, Icon, ItemTempContainer, TextTemp, TextTime } from './styles';
 
 const ForecastHourly: React.FC = () => {
 
-    const [itemSelected, setItemSelected] = useState('today')
+    const today = format(new Date(), `dd EEEE`, {
+        locale: ptBR,
+    })
+    const { weather } = useWeather()
+    const [itemSelected, setItemSelected] = useState(today)
 
-    function handleChangeItemSelected(itemId: 'today' | 'tomorrow') {
+    function handleChangeItemSelected(itemId: string) {
         setItemSelected(itemId)
     }
+    const days = weather?.hourly
+        .map((hw) => {
+            return isTomorrow(fromUnixTime(hw.dt)) ? 'amanhã' : format(fromUnixTime(hw.dt), `dd EEEE`, {
+                locale: ptBR,
+            })
+        }).filter((item, pos, self) => {
+            return self.indexOf(item) == pos;
+        })
 
     const renderTabButtons = useMemo(() => {
         return (
-            <ForecastHourlyButtonsContainer>
-                {tabButtons.map(({ title, id }) =>
+            <ForecastHourlyButtonsContainer
+                horizontal
+                showsHorizontalScrollIndicator={false}>
+                {days?.map((day, i) =>
                     <TabButton
-                        key={id}
-                        title={title}
-                        selected={itemSelected === id}
-                        onPress={() => handleChangeItemSelected(id)}
+                        key={i}
+                        title={day === today ? 'hoje' : day.replace(/[0-9]/g, "").replace(' ', '')}
+                        selected={itemSelected === day}
+                        onPress={() => handleChangeItemSelected(day)}
                     />
                 )}
             </ForecastHourlyButtonsContainer>
         )
     }, [itemSelected])
 
-    const renderItem = ({ item: { temp, time, rain } }: { item: TempItemsProps }) => {
+    const items = useMemo(() => {
+        return weather?.hourly
+            .filter(hw => {
+                const dayName = isTomorrow(fromUnixTime(hw.dt)) ? 'amanhã' : format(fromUnixTime(hw.dt), `dd EEEE`, {
+                    locale: ptBR,
+                })
+                return dayName === itemSelected
+            })
+
+    }, [itemSelected])
+
+    const renderItem = ({ item: { temp, dt, weather } }: { item: WeatherProps }) => {
         return (
             <ItemTempContainer >
-                <TextTime>{time}</TextTime>
-                <TextTime>{rain === '' ? "🌧️" : "☁️"}</TextTime>
-                <TextTemp>{temp}</TextTemp>
+                <TextTime>
+                    {format(fromUnixTime(dt), `HH'h'`, {
+                        locale: ptBR,
+                    })}
+                </TextTime>
+                <Icon source={{ uri: `https://openweathermap.org/img/wn/${weather[0].icon}.png` }} />
+                <TextTemp>{temp.toFixed(0)}º</TextTemp>
             </ItemTempContainer>
         )
     }
+
 
     return (
         <ForecastHourlyContainer>
             {renderTabButtons}
             <FlatList
                 style={{ marginTop: 15 }}
-                data={itemSelected === 'today' ? tempValuesToday : tempValuesTomorrow}
+                data={items}
                 renderItem={(item) => renderItem(item)}
                 ItemSeparatorComponent={() => <View style={{ width: 15 }} />}
                 horizontal
                 showsHorizontalScrollIndicator={false}
-                keyExtractor={(item) => item.time}
+                keyExtractor={(item) => item.dt.toString()}
             />
         </ForecastHourlyContainer>
     )

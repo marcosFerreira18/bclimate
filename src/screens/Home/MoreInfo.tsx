@@ -1,56 +1,36 @@
-import React, { useMemo } from 'react';
+import React from 'react';
+import { useWeather } from '../../hooks/weather';
 import { ItemMoreInfoIcon, ItemMoreInfoTitle, ItemMoreInfoValue, MoreInfoContainer, MoreInfoItemContainer } from './styles';
 
 const MoreInfo: React.FC = () => {
-
-    const renderInfo = useMemo(() => {
-        return infos.map((info, i) => {
-            return (
-                <MoreInfoItemContainer key={i}>
-                    <ItemMoreInfoIcon>
-                        {info.icon}
-                    </ItemMoreInfoIcon>
-                    <ItemMoreInfoValue>
-                        {`${13} ${info.natation}`}
-                    </ItemMoreInfoValue>
-                    <ItemMoreInfoTitle>
-                        {info.title}
-                    </ItemMoreInfoTitle>
-                </MoreInfoItemContainer>
-            )
-        })
-    }, [infos])
-
+    const { weather } = useWeather()
 
     return (
         <MoreInfoContainer
             blurType="dark"
             blurAmount={1}
             reducedTransparencyFallbackColor="black">
-            {renderInfo}
+            <Item icon='💨' title='ventos' value={`${weather?.current.wind_speed}m/s`} />
+            <Item icon='💦' title='humidade' value={`${weather?.current.humidity}%`} />
+            <Item icon='💨' title='chuva' value={`${weather?.hourly[0].pop}%`} />
         </MoreInfoContainer>
-    )
-        ;
+    );
 }
 
 
-const infos = [
-    {
-        name: 'wind',
-        title: "Ventos",
-        natation: 'm/s',
-        icon: '💨'
-    },
-    {
-        name: "humidity",
-        title: "Humidade",
-        natation: '%',
-        icon: '💦'
-    },
-    {
-        name: "rain",
-        title: "Chuva",
-        natation: '%',
-        icon: '☔️'
-    }]
+const Item: React.FC<{ icon: string, value: string, title: string }> = ({ icon, value, title }) => {
+    return (
+        <MoreInfoItemContainer>
+            <ItemMoreInfoIcon>
+                {icon}
+            </ItemMoreInfoIcon>
+            <ItemMoreInfoValue>
+                {value}
+            </ItemMoreInfoValue>
+            <ItemMoreInfoTitle>
+                {title}
+            </ItemMoreInfoTitle>
+        </MoreInfoItemContainer>
+    )
+}
 export default MoreInfo;

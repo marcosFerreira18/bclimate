@@ -48,11 +48,9 @@ export const TempText = styled.Text`
    color: ${({ theme }) => theme.NEW_UI_COLORS.TITLE};
 `;
 
-export const IconWeather = styled.Text`
-   font-style: normal;
-   font-weight: 800;
-   font-size: 100px;
-   color: ${({ theme }) => theme.NEW_UI_COLORS.TITLE};
+export const IconWeather = styled.Image`
+   height: 120px;
+   width: 120px;
 `;
 
 export const MoreInfoContainer = styled(BlurView)`

@@ -5,6 +5,7 @@ import { HeaderScreen, ScreenContainer } from '../Home/styles';
 import SelectUnit from './SelectUnit';
 
 const SettingsScreen: React.FC = () => {
+
    return (
       <ScreenContainer>
          <SafeAreaView>
