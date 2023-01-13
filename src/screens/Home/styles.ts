@@ -1,7 +1,6 @@
 import { BlurView } from '@react-native-community/blur';
-import { Dimensions } from 'react-native';
+import { Dimensions, Platform, View } from 'react-native';
 import styled from 'styled-components/native';
-
 const { width } = Dimensions.get('screen');
 
 export const ScreenContainer = styled.View`
@@ -53,11 +52,14 @@ export const IconWeather = styled.Image`
    width: 120px;
 `;
 
-export const MoreInfoContainer = styled(BlurView)`
+export const MoreInfoContainer = styled(
+   Platform.OS === 'android' ? View : BlurView,
+)`
    margin-top: 20px;
    flex-direction: row;
    justify-content: space-around;
    border: 1px solid rgba(32, 84, 133, 0.2);
+   background-color: rgba(200, 180, 232, 0.2);
    border-radius: 16px;
    padding: 15px;
 `;
@@ -70,6 +72,7 @@ export const MoreInfoItemContainer = styled.View`
 
 export const ItemMoreInfoIcon = styled.Text`
    font-size: 30px;
+   color: white;
 `;
 
 export const ItemMoreInfoValue = styled.Text`
