@@ -9,7 +9,7 @@ import Tabs from './navigation/Tabs';
 const App: React.FC = () => {
    return (
       <NavigationContainer >
-         <StatusBar barStyle={'light-content'}/>
+         <StatusBar barStyle={'light-content'} />
          <ThemeProvider theme={{ ...dark }}>
             <HooksProvider>
                <Tabs />

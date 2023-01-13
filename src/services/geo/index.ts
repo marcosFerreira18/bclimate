@@ -1,12 +1,11 @@
 import { setAPI } from '../config/axios';
 import { LocationProps } from './types';
 
-const api = setAPI('geo');
-
 export const getGeoReverse = async (
    lat: number,
    lon: number,
 ): Promise<LocationProps[]> => {
+   const api = setAPI('geo');
    return api
       .get('/reverse', { params: { lat, lon } })
       .then((resp) => resp as unknown as LocationProps[])

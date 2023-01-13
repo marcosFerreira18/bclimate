@@ -11,7 +11,7 @@ import ptBR from 'date-fns/locale/pt-BR';
 import bgImage from '../../assets/bg-home.png';
 import { useWeather } from '../../hooks/weather';
 import ForecastHourly from './ForecastHourly';
-import MoreInfo from './MoreInfo';
+import MoreInfo from './MoreInfo/MoreInfo';
 
 const HomeScreen: React.FC = () => {
 
@@ -47,7 +47,11 @@ const HomeScreen: React.FC = () => {
                </View>
                {weather && <IconWeather source={{ uri: `https://openweathermap.org/img/wn/${weather?.current.weather[0].icon}@2x.png` }} />}
             </TempContainer>
-            <MoreInfo />
+            <MoreInfo
+               wind_speed={weather.current.wind_speed}
+               humidity={weather.current.humidity}
+               pop={weather.hourly[0].pop || 0}
+            />
             <ForecastHourly />
          </SafeAreaView>
       </ScreenContainer>

@@ -40,8 +40,7 @@ export const WeatherProvider: React.FC<Props> = ({ children }) => {
     useEffect(() => {
         setLoading(true)
         Geolocation.getCurrentPosition(({ coords: { latitude, longitude } }) => {
-            console.log({ latitude, longitude })
-            loadLocation(37.785834, -122.406417)
+            loadLocation(latitude, longitude)
         });
     }, [])
 
