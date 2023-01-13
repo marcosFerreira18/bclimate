@@ -1,14 +1,15 @@
-import React, { useMemo, useState } from 'react';
+import React, { useMemo } from 'react';
 import { ItemUnitSymbol, ItemUnitTitle, SectionTitle, UnitsButtonContainer, UnitsContainer, UnitsItem } from './styles';
 
 import { TickSquare } from 'iconsax-react-native';
+import { useSettings } from '../../hooks/settings';
 
 const SelectUnit: React.FC = () => {
 
-    const [unit, setUnit] = useState('celcius')
+    const {unitsType, changeUnitsType} = useSettings()
 
     function handleChangeUnit(unit: string) {
-        setUnit(unit)
+        changeUnitsType(unit)
     }
 
     const renderUnits = useMemo(() => {
@@ -26,7 +27,7 @@ const SelectUnit: React.FC = () => {
                             {name}
                         </ItemUnitTitle>
                         {
-                            id === unit &&
+                            id === unitsType &&
                             <TickSquare color={'#8D8D93'} variant="Bold" size={34} style={{position: 'absolute', top:-7, right:-7}} />
                         }
                     </UnitsItem>
@@ -36,12 +37,12 @@ const SelectUnit: React.FC = () => {
         </UnitsButtonContainer>
 
 
-    }, [unit])
+    }, [unitsType])
 
     return (
         <UnitsContainer>
             <SectionTitle>
-                Escala
+                Escala {unitsType}
             </SectionTitle>
             {renderUnits}
         </UnitsContainer>
@@ -49,9 +50,9 @@ const SelectUnit: React.FC = () => {
 }
 
 const units = [
-    { id: 'celcius', name: 'Celcius', symbol: 'Cº', },
-    { id: 'fahrenheit', name: 'Fahrenheit', symbol: 'Fº', },
-    { id: 'kelvin', name: 'Kelvin', symbol: 'Kº', }
+    { id: 'metric', name: 'Celcius', symbol: 'Cº', },
+    { id: 'imperial', name: 'Fahrenheit', symbol: 'Fº', },
+    { id: 'standard', name: 'Kelvin', symbol: 'Kº', }
 ]
 
 export default SelectUnit;

@@ -5,7 +5,7 @@ export const ForecastHourlyContainer = styled.View`
    padding: 10px 0px;
 `;
 
-export const ForecastHourlyButtonsContainer = styled.View`
+export const ForecastHourlyButtonsContainer = styled.ScrollView`
    flex-direction: row;
 `;
 
@@ -19,6 +19,7 @@ export const ButtonText = styled.Text`
    font-size: 18px;
    color: white;
    font-weight: 800;
+   text-transform: capitalize;
 `;
 
 export const ButtonIndicator = styled.View`
@@ -47,7 +48,12 @@ export const TextTime = styled.Text`
    color: #888ca0;
 `;
 
-export const TextTemp= styled.Text`
+export const Icon = styled.Image`
+   height: 50px;
+   width: 50px;
+`;
+
+export const TextTemp = styled.Text`
    font-style: normal;
    font-weight: 600;
    font-size: 16px;
